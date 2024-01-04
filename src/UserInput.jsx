@@ -1,37 +1,32 @@
 import { useState } from "react";
 
-function UserInput() {
-  const [currentInvestment, setCurrentInvestment] = useState({
-    initialInvestment: "",
-    annualInvestment: "",
-    expectedReturn: "",
-    duration: "",
-  });
+function UserInput({ investmentProp, investmentFunction }) {
+  // const [currentInvestment, setCurrentInvestment] = useState(investmentProp);
 
-  function handleInitialInvestmentChange(evt) {
-    setCurrentInvestment({
-      ...currentInvestment,
-      initialInvestment: evt.target.value,
-    });
-  }
-  function handleAnnualInvestmentChange(evt) {
-    setCurrentInvestment({
-      ...currentInvestment,
-      annualInvestment: evt.target.value,
-    });
-  }
-  function handleExpectedReturnChange(evt) {
-    setCurrentInvestment({
-      ...currentInvestment,
-      expectedReturn: evt.target.value,
-    });
-  }
-  function handleDurationChange(evt) {
-    setCurrentInvestment({
-      ...currentInvestment,
-      duration: evt.target.value,
-    });
-  }
+  // function handleInitialInvestmentChange(evt) {
+  //   setCurrentInvestment({
+  //     ...currentInvestment,
+  //     initialInvestment: evt.target.value,
+  //   });
+  // }
+  // function handleAnnualInvestmentChange(evt) {
+  //   setCurrentInvestment({
+  //     ...currentInvestment,
+  //     annualInvestment: evt.target.value,
+  //   });
+  // }
+  // function handleExpectedReturnChange(evt) {
+  //   setCurrentInvestment({
+  //     ...currentInvestment,
+  //     expectedReturn: evt.target.value,
+  //   });
+  // }
+  // function handleDurationChange(evt) {
+  //   setCurrentInvestment({
+  //     ...currentInvestment,
+  //     duration: evt.target.value,
+  //   });
+  // }
   return (
     <div id="user-input">
       <div className="input-group">
@@ -40,8 +35,8 @@ function UserInput() {
           <input
             type="number"
             name="initialInvestment"
-            value={currentInvestment.initialInvestment}
-            onChange={handleInitialInvestmentChange}
+            value={investmentProp.initialInvestment}
+            onChange={investmentFunction}
           />
         </div>
         <div>
@@ -49,8 +44,8 @@ function UserInput() {
           <input
             type="number"
             name="annualInvestment"
-            value={currentInvestment.annualInvestment}
-            onChange={handleAnnualInvestmentChange}
+            value={investmentProp.annualInvestment}
+            onChange={investmentFunction}
           />
         </div>
       </div>
@@ -60,8 +55,8 @@ function UserInput() {
           <input
             type="number"
             name="expectedReturn"
-            value={currentInvestment.expectedReturn}
-            onChange={handleExpectedReturnChange}
+            value={investmentProp.expectedReturn}
+            onChange={investmentFunction}
           />
         </div>
         <div>
@@ -69,8 +64,8 @@ function UserInput() {
           <input
             type="number"
             name="duration"
-            value={currentInvestment.duration}
-            onChange={handleDurationChange}
+            value={investmentProp.duration}
+            onChange={investmentFunction}
           />
         </div>
       </div>
