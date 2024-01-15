@@ -2,41 +2,33 @@ import { useState } from "react";
 import Header from "./Header";
 import Result from "./Result";
 import UserInput from "./UserInput";
-import { calculateInvestmentResults, formatter } from "./util/investment";
 
 function App() {
-  const investmentObject = {
-    initialInvestment: "",
-    annualInvestment: "",
-    expectedReturn: "",
-    duration: "",
-  };
 
-  const [investObject, setInvestObject] = useState(investmentObject);
-  const resultObject = calculateInvestmentResults(
-    investObject.initialInvestment,
-    investObject.annualInvestment,
-    investObject.expectedReturn,
-    investObject.duration
-  );
-  const [resultObj, setResultObj] = useState(resultObject);
+  const [investObject, setInvestObject] = useState({
+    initialInvestment: 10000,
+    annualInvestment: 1200,
+    expectedReturn: 6,
+    duration: 10,
+  });
 
   function handleInvestmentInputChange(evt) {
-    setInvestObject({
-      ...investObject,
-      [evt.target.name]: evt.target.value,
-    });
-    console.log(evt.target.name);
+    setInvestObject(previousInvestObject => {
+      return {
+        ...previousInvestObject,
+        [evt.target.name]: +evt.target.value
+      }
+    })
   }
   return (
-    <div>
+    <>
       <Header />
       <UserInput
         investmentProp={investObject}
         investmentFunction={handleInvestmentInputChange}
       />
-      <Result objectProp={resultObject} />
-    </div>
+      <Result objectProp={investObject} />
+    </>
   );
 }
 

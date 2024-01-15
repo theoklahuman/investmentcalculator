@@ -1,26 +1,32 @@
+import { calculateInvestmentResults, formatter } from "./util/investment";
+
 function Result({ objectProp }) {
-    return (
-        <table id="result">
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Investment Value</th>
-                    <th>Interest (Year)</th>
-                    <th>Total Interest</th>
-                    <th>Invested Capital</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>{objectProp.year}</th>
-                    <th>{objectProp.annualInvestment}</th>
-                    <th>{objectProp.interest}</th>
-                    <th>{objectProp.valueEndOfYear}</th>
-                    <th>{objectProp.annualInvestment}</th>
-                </tr>
-            </tbody>
-        </table>
-    )
+  const resultObject = calculateInvestmentResults(objectProp);
+  console.log(resultObject);
+  return (
+    <table id="result">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Investment Value</th>
+          <th>Interest (Year)</th>
+          <th>Total Interest</th>
+          <th>Invested Capital</th>
+        </tr>
+      </thead>
+      <tbody>
+        {resultObject.map((object) => (
+          <tr key={object.year}>
+            <th>{object.year}</th>
+            <th>{object.valueEndOfYear}</th>
+            <th>{object.interest}</th>
+            <th>{objectProp.expectedReturn}</th>
+            <th>{object.annualInvestment}</th>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 export default Result;
