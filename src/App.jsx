@@ -4,7 +4,6 @@ import Result from "./Result";
 import UserInput from "./UserInput";
 
 function App() {
-
   const [investObject, setInvestObject] = useState({
     initialInvestment: 10000,
     annualInvestment: 1200,
@@ -12,13 +11,15 @@ function App() {
     duration: 10,
   });
 
+  const inputIsValid = investObject.duration >= 1;
+
   function handleInvestmentInputChange(evt) {
-    setInvestObject(previousInvestObject => {
+    setInvestObject((previousInvestObject) => {
       return {
         ...previousInvestObject,
-        [evt.target.name]: +evt.target.value
-      }
-    })
+        [evt.target.name]: +evt.target.value,
+      };
+    });
   }
   return (
     <>
@@ -27,7 +28,10 @@ function App() {
         investmentProp={investObject}
         investmentFunction={handleInvestmentInputChange}
       />
-      <Result objectProp={investObject} />
+      {!inputIsValid && (
+        <p className="center">Please enter a duration greater than Zero</p>
+      )}
+      {inputIsValid && <Result objectProp={investObject} />}
     </>
   );
 }

@@ -2,7 +2,10 @@ import { calculateInvestmentResults, formatter } from "./util/investment";
 
 function Result({ objectProp }) {
   const resultObject = calculateInvestmentResults(objectProp);
-  console.log(resultObject);
+  const initialInvestment =
+    resultObject[0].valueEndOfYear -
+    resultObject[0].interest -
+    resultObject[0].annualInvestment;
   return (
     <table id="result">
       <thead>
@@ -15,15 +18,22 @@ function Result({ objectProp }) {
         </tr>
       </thead>
       <tbody>
-        {resultObject.map((object) => (
-          <tr key={object.year}>
-            <th>{object.year}</th>
-            <th>{object.valueEndOfYear}</th>
-            <th>{object.interest}</th>
-            <th>{objectProp.expectedReturn}</th>
-            <th>{object.annualInvestment}</th>
-          </tr>
-        ))}
+        {resultObject.map((object) => {
+          const totalInterest =
+            object.valueEndOfYear -
+            object.annualInvestment * object.year -
+            initialInvestment;
+            const totalInvestment = object.valueEndOfYear - totalInterest;
+          return (
+            <tr key={object.year}>
+              <td>{object.year}</td>
+              <td>{formatter.format(object.valueEndOfYear)}</td>
+              <td>{formatter.format(object.interest)}</td>
+              <td>{formatter.format(totalInterest)}</td>
+              <td>{formatter.format(totalInvestment)}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
